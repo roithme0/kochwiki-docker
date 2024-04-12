@@ -1,0 +1,35 @@
+---
+version: "3.1"
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: kochwiki
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - /volume1/docker/Kochwiki/production/postgresql/data:/var/lib/postgresql/data
+
+  # adminer:
+  #   image: adminer
+  #   restart: unless-stopped
+  #   ports:
+  #     - 9090:8080
+  #   depends_on:
+  #     - db
+
+  quarkus-app:
+    image: roithme0/kochwiki-quarkus:latest
+    ports:
+      - 8888:8080
+    depends_on:
+      - db
+
+  angular-app:
+    image: roithme0/kochwiki-angular:latest
+    ports:
+      - 8000:80
+    depends_on:
+      - quarkus-app
