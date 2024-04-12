@@ -20,16 +20,16 @@ services:
   #   depends_on:
   #     - db
 
-  quarkus-app:
-    image: roithme0/kochwiki-quarkus:alpha
+  backend-app:
+    image: roithme0/kochwiki-backend:alpha
     ports:
       - 8889:8080
     depends_on:
       - db
 
-  angular-app:
-    image: roithme0/kochwiki-angular:alpha
+  frontend-app:
+    image: roithme0/kochwiki-frontend:alpha
     ports:
       - 8001:80
     depends_on:
-      - quarkus-app
+      - backend-app
